@@ -506,7 +506,8 @@ var displayed_health = 100
 var total_heal_increase = 0.1
 var max_health:
 	get:
-		return 1000 * total_HP_increase
+		return 100 
+		#* total_HP_increase
 var can_heal = true
 var heal_per_second:
 	get:
@@ -525,10 +526,10 @@ var starsaveused = false
 
 #mob damages
 
-var clownfish_damage = 50
-var shark_damage = 250
-var seahorse_projectile_damage = 100
-var crab_damage = 450
+var clownfish_damage = 5
+var shark_damage = 25
+var seahorse_projectile_damage = 10
+var crab_damage = 45
 
 	
 #sprint stuff below
@@ -661,7 +662,7 @@ func take_player_damage(amount: float) -> void:
 			shield_can_recharge = false
 			$ShieldRechargeDelay.start()
 	if current_health - amount <= 0 and not starsaveused and current_health > 1:
-		current_health = 10
+		current_health = 1
 		starsaveused = true
 		emptybeams.visible = false
 	else:
