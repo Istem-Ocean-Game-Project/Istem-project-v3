@@ -332,10 +332,10 @@ offset_right = 424.0
 offset_bottom = 1781.0
 
 [node name="dashbar" type="ProgressBar" parent="UI/CanvasLayer" unique_id=2025877455]
-offset_left = 49.0
-offset_top = 1222.0
-offset_right = 165.0
-offset_bottom = 1667.0
+offset_left = 25.0
+offset_top = 177.0
+offset_right = 141.0
+offset_bottom = 622.0
 fill_mode = 3
 
 [node name="Panel" type="Panel" parent="UI/CanvasLayer" unique_id=855191754]

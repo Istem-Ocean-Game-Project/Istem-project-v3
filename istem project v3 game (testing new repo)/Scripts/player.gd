@@ -12,6 +12,8 @@ var currentharpoon = null
 var harpoon_point = Vector2.ZERO
 var turnaccel = 1450
 var accel = 720
+var pivoting = false
+var pivot_hit = false
 
 #shield stuff below
 var shield_max_health:
@@ -29,6 +31,7 @@ var maxspeed:
 		return 500 * total_speed_increase
 var highmode = false
 var highmodeduration = 2.0
+#var highmodespeedcap = 1740
 var highmodespeedcap = 1740
 var highmodedrag = 150
 
@@ -185,10 +188,12 @@ func _physics_process(delta: float) -> void:
 	$HarpoonRaycast.target_position = direction_to_mouse * 500
 	
 	if highmode == true:
-		highmodeduration -= delta
+		if not is_dashing:
+			highmodeduration -= delta
 	
 		if highmodeduration <= 0.0:
 			highmode = false
+			
 			highmodeduration = 2.0
 		
 	if ropecharged:
@@ -236,6 +241,7 @@ func _physics_process(delta: float) -> void:
 		#velocity.y = JUMP_VELOCITY
 
 	if Input.is_action_just_pressed("Harpoon"):
+		pivoting = highmode
 		wasattachedthisshot = false
 		var harpoon = harpoonprojectilescene.instantiate()
 		harpoon.global_position = global_position		
@@ -244,6 +250,7 @@ func _physics_process(delta: float) -> void:
 		get_parent().add_child(harpoon)
 		currentharpoon = harpoon
 	if Input.is_action_just_released("Harpoon"):
+		pivoting = false
 		harpoonhit = false
 		ropecharged = false
 		chargetimer = 0
@@ -343,7 +350,6 @@ func _physics_process(delta: float) -> void:
 	if harpooning:
 		var direction_to_point = (harpoon_point - global_position).normalized()
 		var distancetopoint = global_position.distance_to(harpoon_point)
-		
 		if distancetopoint > maxropelength:
 			global_position = harpoon_point + (global_position - harpoon_point).normalized() * maxropelength
 			distancetopoint = maxropelength
@@ -408,6 +414,7 @@ func _physics_process(delta: float) -> void:
 		print("impact: ", impactspeed, " can bounce: ", can_bounce)
 		if impactspeed > 300:
 			if can_bounce:
+				#if highmode:
 				highmodeduration = 2.0
 				velocity = incomingvelocity.bounce(normal) * 1.1
 				break
@@ -437,7 +444,10 @@ func forcefaceside(side):
 func handle_dash(delta: float, direction: Vector2) -> void:
 	if is_dashing:
 		dash_timer -= delta
-		velocity = dash_direction * dash_speed
+		if highmode:
+			velocity = velocity.length() * dash_direction
+		else:
+			velocity = dash_direction * dash_speed
 
 		if dash_timer <= 0.0:
 			is_dashing = false
@@ -767,6 +777,7 @@ func handleenemycontact(body: Node2D):
 func on_spear_hit(hurtbox: TemplateHurtbox) -> void:
 	var enemy = hurtbox.owner
 	var normal = -(get_global_mouse_position() - global_position).normalized()
+	#if highmode:
 	highmodeduration = 2.0
 	velocity = velocity.bounce(normal)
 
