@@ -16,6 +16,75 @@
 [ext_resource type="Texture2D" uid="uid://dt5cs6dqupia1" path="res://Assets/Cobblestone.png" id="14_wxwew"]
 [ext_resource type="PackedScene" uid="uid://dlfil1d4hc4ke" path="res://Scenes/Enemies/crab.tscn" id="16_alh3a"]
 
+[sub_resource type="Gradient" id="Gradient_acvyw"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 1, 0.5411765, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_alh3a"]
+gradient = SubResource("Gradient_acvyw")
+
+[sub_resource type="Curve" id="Curve_alh3a"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4q8tf"]
+curve = SubResource("Curve_alh3a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_acvyw"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(5, 10, 1)
+spread = 40.0
+flatness = 1.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.099999994
+scale_max = 0.099999994
+scale_curve = SubResource("CurveTexture_4q8tf")
+color_ramp = SubResource("GradientTexture1D_alh3a")
+
+[sub_resource type="Curve" id="Curve_4q8tf"]
+_data = [Vector2(0, 0.45413876), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_x3xnh"]
+curve = SubResource("Curve_4q8tf")
+
+[sub_resource type="Gradient" id="Gradient_alh3a"]
+colors = PackedColorArray(0, 0, 1, 1, 0, 0, 0.5411765, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4q8tf"]
+gradient = SubResource("Gradient_alh3a")
+
+[sub_resource type="Curve" id="Curve_x3xnh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8r6kd"]
+curve = SubResource("Curve_x3xnh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tfod6"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(5, 10, 1)
+spread = 40.0
+flatness = 1.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.099999994
+scale_max = 0.099999994
+scale_curve = SubResource("CurveTexture_8r6kd")
+color_ramp = SubResource("GradientTexture1D_4q8tf")
+alpha_curve = SubResource("CurveTexture_x3xnh")
+
+[sub_resource type="Curve" id="Curve_acvyw"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_alh3a"]
+curve = SubResource("Curve_acvyw")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3cx6b"]
 particle_flag_disable_z = true
 initial_velocity_min = 20.0
@@ -23,6 +92,7 @@ initial_velocity_max = 40.0
 gravity = Vector3(0, 0, 0)
 scale_min = 0.04
 scale_max = 0.04
+scale_curve = SubResource("CurveTexture_alh3a")
 
 [sub_resource type="Animation" id="Animation_dahhg"]
 length = 0.001
@@ -262,6 +332,23 @@ one_shot = true
 wait_time = 0.2
 autostart = true
 
+[node name="DashParticles" type="GPUParticles2D" parent="Player" unique_id=1396922613]
+position = Vector2(-0.21829224, 0.22729492)
+emitting = false
+amount = 20
+texture = ExtResource("5_3so38")
+lifetime = 0.3
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_acvyw")
+
+[node name="MovementBubbles" type="GPUParticles2D" parent="Player" unique_id=1470385719]
+position = Vector2(-0.21829224, 0.22729492)
+emitting = false
+amount = 10
+texture = ExtResource("5_3so38")
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_tfod6")
+
 [node name="UI" type="Node" parent="." unique_id=1877946204]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="UI" unique_id=1757526076]
@@ -476,16 +563,16 @@ tile_set = SubResource("TileSet_alh3a")
 position = Vector2(-1324.0002, -876.9998)
 
 [node name="crab" parent="." unique_id=1510451570 instance=ExtResource("16_alh3a")]
-position = Vector2(700, -1381.0001)
+position = Vector2(377, 1092.9996)
 
 [node name="crab2" parent="." unique_id=491867794 instance=ExtResource("16_alh3a")]
-position = Vector2(936, -1474)
+position = Vector2(699.99994, 920.99976)
 
 [node name="crab3" parent="." unique_id=1235932857 instance=ExtResource("16_alh3a")]
-position = Vector2(652.99994, -1654.0001)
+position = Vector2(929, 867.99963)
 
 [node name="crab4" parent="." unique_id=1473156979 instance=ExtResource("16_alh3a")]
-position = Vector2(965, -1683)
+position = Vector2(1274, 738.99976)
 
 [connection signal="timeout" from="Player/HealDelayTimer" to="Player" method="_on_heal_delay_timer_timeout"]
 [connection signal="timeout" from="Player/HealTimer" to="Player" method="_on_heal_timer_timeout"]

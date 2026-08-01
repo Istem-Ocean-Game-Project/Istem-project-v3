@@ -90,7 +90,7 @@ var kbvelocity = Vector2.ZERO
 @export var recharge_delay: float = 1.85
 @export var sprint_threshold: float = 0.0
 #dash
-@export var dash_max: float = 70.0
+@export var dash_max: float = 75.0
 @export var dash_cost: float = 25.0
 @export var dash_recharge_per_second: float = 12.5
 @export var dash_recharge_delay: float = 1.0
@@ -168,7 +168,11 @@ func _on_harpoon_attached(hitposition, hitbody):
 	currentharpoon = null
 	
 func _physics_process(delta: float) -> void:
-	
+	if velocity.length() > 500:
+		$MovementBubbles.rotation = velocity.angle() + PI
+		$MovementBubbles.emitting = true
+	else:
+		$MovementBubbles.emitting = false
 	#test
 	if harpoonhit:
 		if is_instance_valid(harpoon_target):
@@ -445,7 +449,7 @@ func handle_dash(delta: float, direction: Vector2) -> void:
 	if is_dashing:
 		dash_timer -= delta
 		if highmode:
-			velocity = velocity.length() * dash_direction
+			velocity = velocity.length() * dash_direction * 1.05
 		else:
 			velocity = dash_direction * dash_speed
 
@@ -471,7 +475,9 @@ func start_dash(direction: Vector2) -> void:
 
 	if dash_direction == Vector2.ZERO:
 		return
-
+	$DashParticles.rotation = dash_direction.angle()
+	$DashParticles.restart()
+	$DashParticles.emitting = true
 	is_dashing = true
 	dash_timer = dash_duration
 
