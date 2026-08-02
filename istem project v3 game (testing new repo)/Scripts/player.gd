@@ -191,14 +191,19 @@ func _physics_process(delta: float) -> void:
 	var direction_to_mouse = (mouse_pos - global_position).normalized()
 	$HarpoonRaycast.target_position = direction_to_mouse * 500
 	
-	if highmode == true:
+	if highmode:
+		$SuperMovementBubbles.rotation = velocity.angle() + PI
+		$SuperMovementBubbles.emitting = true
+
 		if not is_dashing:
 			highmodeduration -= delta
-	
+
 		if highmodeduration <= 0.0:
 			highmode = false
-			
+			$AnimatedSprite2D.modulate = Color.WHITE
+			$SuperMovementBubbles.emitting = false
 			highmodeduration = 2.0
+				
 		
 	if ropecharged:
 		$HarpoonLine.modulate = "WHITE"
@@ -368,6 +373,7 @@ func _physics_process(delta: float) -> void:
 		if overstretched and not wasoverstretched:
 			ropecharged = true
 			highmode = true
+			start_highmode_flash()
 			chargetimer = chargeduration
 			currentharpoonmaxspeed = chargedharpoonspeed
 			
@@ -506,7 +512,12 @@ func update_dash_bar(delta: float) -> void:
 		)
 
 		dash_bar.value = dash_bar_display_value
+func start_highmode_flash() -> void:
+	$AnimatedSprite2D.modulate = Color.WHITE * 1.5
+	await get_tree().create_timer(0.1).timeout
 
+	if highmode:
+		$AnimatedSprite2D.modulate = Color(0.65, 0.9, 1.0)
 #actual health stuff below
 @onready var health_label: Label = $"../UI/CanvasLayer/health_label"
 @onready var health_bar: TextureProgressBar = get_tree().current_scene.find_child("HealthBeams", true, false) as TextureProgressBar

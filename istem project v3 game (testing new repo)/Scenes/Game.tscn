@@ -78,6 +78,41 @@ scale_curve = SubResource("CurveTexture_8r6kd")
 color_ramp = SubResource("GradientTexture1D_4q8tf")
 alpha_curve = SubResource("CurveTexture_x3xnh")
 
+[sub_resource type="Curve" id="Curve_8r6kd"]
+_data = [Vector2(0, 0.45413876), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tfod6"]
+curve = SubResource("Curve_8r6kd")
+
+[sub_resource type="Gradient" id="Gradient_rajel"]
+colors = PackedColorArray(0, 0, 1, 1, 0, 0, 0.5411765, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vvhu1"]
+gradient = SubResource("Gradient_rajel")
+
+[sub_resource type="Curve" id="Curve_lbihj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_raj38"]
+curve = SubResource("Curve_lbihj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8e0uq"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(5, 10, 1)
+spread = 40.0
+flatness = 1.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.099999994
+scale_max = 0.099999994
+scale_curve = SubResource("CurveTexture_raj38")
+color_ramp = SubResource("GradientTexture1D_vvhu1")
+alpha_curve = SubResource("CurveTexture_tfod6")
+
 [sub_resource type="Curve" id="Curve_acvyw"]
 _data = [Vector2(0, 1), 0.0, -1.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -344,10 +379,18 @@ process_material = SubResource("ParticleProcessMaterial_acvyw")
 [node name="MovementBubbles" type="GPUParticles2D" parent="Player" unique_id=1470385719]
 position = Vector2(-0.21829224, 0.22729492)
 emitting = false
-amount = 10
+amount = 7
 texture = ExtResource("5_3so38")
 lifetime = 0.6
 process_material = SubResource("ParticleProcessMaterial_tfod6")
+
+[node name="SuperMovementBubbles" type="GPUParticles2D" parent="Player" unique_id=1846005109]
+position = Vector2(-0.21829224, 0.22729492)
+emitting = false
+amount = 20
+texture = ExtResource("5_3so38")
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_8e0uq")
 
 [node name="UI" type="Node" parent="." unique_id=1877946204]
 
