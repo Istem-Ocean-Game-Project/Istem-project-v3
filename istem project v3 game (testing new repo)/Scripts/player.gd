@@ -192,18 +192,30 @@ func _physics_process(delta: float) -> void:
 	$HarpoonRaycast.target_position = direction_to_mouse * 500
 	
 	if highmode:
-		$SuperMovementBubbles.rotation = velocity.angle() + PI
-		$SuperMovementBubbles.emitting = true
+		if velocity.length() > 700:
+			$SuperMovementBurst.emitting = true
+			
+			$SuperMovementBubbles.rotation = velocity.angle() + PI
+			$SuperMovementBubbles.emitting = true
+			
+			$SuperMovementTrails.rotation = velocity.angle() + PI
+			$SuperMovementTrails.emitting = true
+		else:
+			$SuperMovementBubbles.emitting = false
+			$SuperMovementTrails.emitting = false
 
 		if not is_dashing:
 			highmodeduration -= delta
 
 		if highmodeduration <= 0.0:
 			highmode = false
-			$AnimatedSprite2D.modulate = Color.WHITE
 			$SuperMovementBubbles.emitting = false
+			$SuperMovementTrails.emitting = false
 			highmodeduration = 2.0
-				
+	else:
+		$SuperMovementBubbles.emitting = false
+		$SuperMovementTrails.emitting = false
+		$AnimatedSprite2D.modulate = Color.WHITE
 		
 	if ropecharged:
 		$HarpoonLine.modulate = "WHITE"
@@ -421,12 +433,23 @@ func _physics_process(delta: float) -> void:
 		var collision = get_slide_collision(i)
 		var normal = collision.get_normal()
 		var impactspeed = incomingvelocity.dot(-normal)
+		
 		print("impact: ", impactspeed, " can bounce: ", can_bounce)
+		
 		if impactspeed > 300:
 			if can_bounce:
-				#if highmode:
-				highmodeduration = 2.0
+				bouncegracetimer = 0.0
 				velocity = incomingvelocity.bounce(normal) * 1.1
+
+				if highmode:
+					highmodeduration = 2.0
+					play_parry_effect(collision.get_position(), collision.get_normal())
+				else:
+					$ParryBubbles.global_position = collision.get_position()
+					$ParryBubbles.rotation = collision.get_normal().angle()
+					$ParryBubbles.restart()
+					$ParryBubbles.emitting = true
+					
 				break
 			else:
 				crashed = true
@@ -515,9 +538,9 @@ func update_dash_bar(delta: float) -> void:
 func start_highmode_flash() -> void:
 	$AnimatedSprite2D.modulate = Color.WHITE * 1.5
 	await get_tree().create_timer(0.1).timeout
+	$AnimatedSprite2D.modulate = Color(0.991, 1.0, 0.815, 1.0)
 
-	if highmode:
-		$AnimatedSprite2D.modulate = Color(0.65, 0.9, 1.0)
+
 #actual health stuff below
 @onready var health_label: Label = $"../UI/CanvasLayer/health_label"
 @onready var health_bar: TextureProgressBar = get_tree().current_scene.find_child("HealthBeams", true, false) as TextureProgressBar
@@ -794,9 +817,20 @@ func handleenemycontact(body: Node2D):
 func on_spear_hit(hurtbox: TemplateHurtbox) -> void:
 	var enemy = hurtbox.owner
 	var normal = -(get_global_mouse_position() - global_position).normalized()
-	#if highmode:
-	highmodeduration = 2.0
+	var effect_normal = (global_position - hurtbox.global_position).normalized()
 	velocity = velocity.bounce(normal)
+	bouncegracetimer = 0.0
+	
+	if highmode:
+		highmodeduration = 2.0
+		play_parry_effect(hurtbox.global_position, effect_normal)
+	else:
+		$ParryBubbles.global_position = hurtbox.global_position
+		$ParryBubbles.rotation = (global_position - hurtbox.global_position).angle()
+		$ParryBubbles.restart()
+		$ParryBubbles.emitting = true
+		
+	
 
 
 func setcanbounce(value):
@@ -805,8 +839,18 @@ func setcanbounce(value):
 		bouncegracetimer = bouncegraceduration
 		
 		
+func play_parry_effect(effect_position: Vector2, effect_normal: Vector2) -> void:
+	$ParryBubbles.global_position = effect_position
+	$ParryBubbles.rotation = effect_normal.angle() + PI
 
+	$ParrySparks.global_position = global_position
 
+	$ParryBubbles.restart()
+	$ParryBubbles.emitting = true
+
+	$ParrySparks.restart()
+	$ParrySparks.emitting = true
+	
 func _on_heal_delay_timer_timeout() -> void:
 	can_heal = true
 
