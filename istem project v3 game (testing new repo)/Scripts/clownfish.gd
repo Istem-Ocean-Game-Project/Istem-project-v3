@@ -14,6 +14,10 @@ var chase_subject = null
 var current_health = 2
 var kbtime = 0.0
 var kbvelocity = Vector2.ZERO
+
+var nearbyclownfish: Array[Node2D] = []
+var separationdirection = Vector2.ZERO
+var separationstrength = 80.0
 	
 func _ready() -> void:
 		animated_sprite_2d.play("idle")
@@ -27,12 +31,6 @@ func _process(_delta): #x axis flipping for now
 	
 	if current_health <= 0:
 		queue_free()
-		
-	if kbtime > 0:
-		kbtime 	-= _delta
-		velocity = kbvelocity
-		move_and_slide()
-		return
 		
 		
 func _on_aggro_area_body_entered(body):
@@ -52,10 +50,24 @@ func _on_aggro_area_body_exited(_body: Node2D) -> void:
 
 
 func _physics_process(_delta):
-	if aggro and chase_subject:
-		velocity = (chase_subject.global_position - global_position).normalized() * speed
-	else: 
-		velocity = Vector2.ZERO
+	if kbtime > 0:
+		kbtime 	-= _delta
+		velocity = kbvelocity
+	else:
+		if aggro and chase_subject:
+			velocity = (chase_subject.global_position - global_position).normalized() * speed
+			separationdirection = Vector2.ZERO
+			for fish in nearbyclownfish:
+				if is_instance_valid(fish):
+					separationdirection += (global_position - fish.global_position).normalized()
+
+			if separationdirection != Vector2.ZERO:
+				separationdirection = separationdirection.normalized()
+				velocity += separationdirection * separationstrength
+		else: 
+			velocity = Vector2.ZERO
+
+	
 	move_and_slide()
 	
 	
@@ -76,6 +88,12 @@ func take_kb(source_position: Vector2):
 	#kbvelocity = kbdirection * 600
 	#kbtime = 0.12
 
+func on_SeperationArea_entered(body: Node2D) -> void:
+	if body != self and body not in nearbyclownfish:
+		nearbyclownfish.append(body)
+	
+func on_SeperationArea_exited(body: Node2D) -> void:
+	nearbyclownfish.erase(body)
 
 
 

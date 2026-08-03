@@ -131,11 +131,15 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q5es7"]
+radius = 8.20193
+height = 23.418343
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8g0i4"]
 radius = 1035.8009
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gxtgd"]
+radius = 8.714227
+height = 23.938103
 
 [sub_resource type="Animation" id="Animation_wx3q7"]
 length = 0.001
@@ -198,10 +202,13 @@ _data = {
 &"damaged": SubResource("Animation_ldcme")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dkfv3"]
+radius = 9.959116
+height = 25.711294
+
 [node name="clownfish" type="CharacterBody2D" unique_id=1111911240 groups=["clownfish"]]
-scale = Vector2(1.5220168, 1.5273025)
 collision_layer = 8
-collision_mask = 10
+collision_mask = 2
 script = ExtResource("1_8g0i4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=330375805]
@@ -232,7 +239,7 @@ script = ExtResource("3_wx3q7")
 metadata/_custom_type_script = "uid://dmd61flg7jy52"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TemplateHurtbox" unique_id=1610760545]
-position = Vector2(-0.65702057, 0.65474796)
+position = Vector2(-1.1920929e-07, 0)
 rotation = 1.5707964
 scale = Vector2(2.1037984, 2.9642484)
 shape = SubResource("CapsuleShape2D_gxtgd")
@@ -240,8 +247,20 @@ shape = SubResource("CapsuleShape2D_gxtgd")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1773414453]
 libraries/ = SubResource("AnimationLibrary_a3qtr")
 
+[node name="SeperationArea" type="Area2D" parent="." unique_id=290649939]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SeperationArea" unique_id=1288868513]
+position = Vector2(-1.1920929e-07, 0)
+rotation = 1.5707964
+scale = Vector2(2.1037984, 2.9642484)
+shape = SubResource("CapsuleShape2D_dkfv3")
+
 [connection signal="body_entered" from="aggro_area" to="." method="_on_aggro_area_body_entered"]
 [connection signal="body_exited" from="aggro_area" to="." method="_on_aggro_area_body_exited"]
 [connection signal="area_entered" from="TemplateHurtbox" to="." method="_on_template_hurtbox_area_entered"]
 [connection signal="area_exited" from="TemplateHurtbox" to="." method="_on_template_hurtbox_area_exited"]
 [connection signal="body_entered" from="TemplateHurtbox" to="." method="_on_template_hurtbox_body_entered"]
+[connection signal="body_entered" from="SeperationArea" to="." method="on_SeperationArea_entered"]
+[connection signal="body_exited" from="SeperationArea" to="." method="on_SeperationArea_exited"]
