@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dt5cs6dqupia1" path="res://Assets/Cobblestone.png" id="14_wxwew"]
 [ext_resource type="PackedScene" uid="uid://dlfil1d4hc4ke" path="res://Scenes/Enemies/crab.tscn" id="16_alh3a"]
 [ext_resource type="Script" uid="uid://b3173ry3n47c5" path="res://Scripts/level_01.gd" id="17_4q8tf"]
+[ext_resource type="PackedScene" uid="uid://dx5181rkqvp8" path="res://Scenes/Enemies/starfish.tscn" id="18_x3xnh"]
 
 [sub_resource type="Gradient" id="Gradient_acvyw"]
 colors = PackedColorArray(1, 1, 0, 1, 1, 1, 0.5411765, 1)
@@ -807,6 +808,20 @@ position = Vector2(929, 867.99963)
 
 [node name="crab4" parent="Enemies/crab_folder" unique_id=1473156979 instance=ExtResource("16_alh3a")]
 position = Vector2(1274, 738.99976)
+
+[node name="starfish_folder" type="Node" parent="Enemies" unique_id=850621657]
+
+[node name="starfish" parent="Enemies/starfish_folder" unique_id=1746702460 instance=ExtResource("18_x3xnh")]
+position = Vector2(630, -1800)
+
+[node name="starfish2" parent="Enemies/starfish_folder" unique_id=2084567052 instance=ExtResource("18_x3xnh")]
+position = Vector2(991, -1669)
+
+[node name="starfish3" parent="Enemies/starfish_folder" unique_id=2140997949 instance=ExtResource("18_x3xnh")]
+position = Vector2(434.00006, -1649.0001)
+
+[node name="starfish4" parent="Enemies/starfish_folder" unique_id=853676229 instance=ExtResource("18_x3xnh")]
+position = Vector2(919, -2016)
 
 [node name="Level01" type="Area2D" parent="." unique_id=1768724796]
 position = Vector2(375, -2127)

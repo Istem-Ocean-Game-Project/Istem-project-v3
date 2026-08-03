@@ -14,7 +14,7 @@ var chase_subject = null
 var current_health = 2
 var kbtime = 0.0
 var kbvelocity = Vector2.ZERO
-
+@onready var damage_number_template: damage_number_template = $damage_number_template
 var nearbyclownfish: Array[Node2D] = []
 var separationdirection = Vector2.ZERO
 var separationstrength = 80.0
@@ -75,6 +75,7 @@ func _physics_process(_delta):
 func take_damage(amount: int):
 	current_health -= amount
 	animation_player.play("damaged")
+	damage_number_template.spawn_label(amount, false)
 	await get_tree().create_timer(0.1).timeout
 	
 
