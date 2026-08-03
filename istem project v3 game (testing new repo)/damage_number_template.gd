@@ -8,7 +8,7 @@ func spawn_label(number: float, crit: bool = false) -> void:
 	var new_label: Label = Label.new()
 	new_label.text = str(number if step_decimals(number) != 0 else number as int)
 	new_label.label_settings = label_settings.duplicate() #label as a seperate copy so changing colour doesnt screw with other copies
-	new_label.z_index = 10000 #show in front of stuff
+	new_label.z_index = 1000 #show in front of stuff
 	new_label.pivot_offset_ratio = Vector2(0.5, 1)
 	
 	if crit: #change colour on crit hit (might not use)
