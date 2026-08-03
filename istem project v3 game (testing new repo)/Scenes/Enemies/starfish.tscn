@@ -256,7 +256,7 @@ _data = {
 &"damaged": SubResource("Animation_ldcme")
 }
 
-[node name="starfish" type="CharacterBody2D" unique_id=1111911240 groups=["clownfish"]]
+[node name="starfish" type="CharacterBody2D" unique_id=1111911240 groups=["starfish"]]
 scale = Vector2(1.5220168, 1.5273025)
 collision_layer = 8
 collision_mask = 10
@@ -292,6 +292,18 @@ shape = SubResource("CircleShape2D_ldcme")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1773414453]
 libraries/ = SubResource("AnimationLibrary_a3qtr")
+
+[node name="RayCastRight" type="RayCast2D" parent="." unique_id=1665934133 groups=["starfish"]]
+position = Vector2(0.090949655, 0)
+rotation = -1.5707964
+scale = Vector2(3.1024737, 1)
+collision_mask = 2
+
+[node name="RayCastLeft" type="RayCast2D" parent="." unique_id=1858524408]
+position = Vector2(0.090949655, 0)
+rotation = 1.5707964
+scale = Vector2(3.1024737, 1)
+collision_mask = 2
 
 [connection signal="body_entered" from="aggro_area" to="." method="_on_aggro_area_body_entered"]
 [connection signal="body_exited" from="aggro_area" to="." method="_on_aggro_area_body_exited"]

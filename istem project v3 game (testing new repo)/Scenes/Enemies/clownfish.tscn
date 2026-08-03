@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://daec8wtnucrkt" path="res://Assets/clownfish aggro spritesheet v2.png" id="2_ldcme"]
 [ext_resource type="Texture2D" uid="uid://dtb2d3j1bnguo" path="res://Assets/spritesheet_clownfish(idle).png" id="2_wx3q7"]
 [ext_resource type="Script" uid="uid://dmd61flg7jy52" path="res://Scripts/Hurtbox.gd" id="3_wx3q7"]
+[ext_resource type="Script" uid="uid://bxuajbif0gs0l" path="res://damage_number_template.gd" id="5_gxtgd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5n2jo"]
 atlas = ExtResource("2_ldcme")
@@ -206,6 +207,9 @@ _data = {
 radius = 9.959116
 height = 25.711294
 
+[sub_resource type="LabelSettings" id="LabelSettings_dkfv3"]
+font_size = 64
+
 [node name="clownfish" type="CharacterBody2D" unique_id=1111911240 groups=["clownfish"]]
 collision_layer = 8
 collision_mask = 2
@@ -256,6 +260,11 @@ position = Vector2(-1.1920929e-07, 0)
 rotation = 1.5707964
 scale = Vector2(2.1037984, 2.9642484)
 shape = SubResource("CapsuleShape2D_dkfv3")
+
+[node name="damage_number_template" type="Node2D" parent="." unique_id=15403281]
+script = ExtResource("5_gxtgd")
+label_settings = SubResource("LabelSettings_dkfv3")
+metadata/_custom_type_script = "uid://bxuajbif0gs0l"
 
 [connection signal="body_entered" from="aggro_area" to="." method="_on_aggro_area_body_entered"]
 [connection signal="body_exited" from="aggro_area" to="." method="_on_aggro_area_body_exited"]
