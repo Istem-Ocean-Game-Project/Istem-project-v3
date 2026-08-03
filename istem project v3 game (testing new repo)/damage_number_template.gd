@@ -4,7 +4,6 @@ class_name damage_number_template
 @export var label_settings: LabelSettings
 @export var crit_colour: Color = Color.RED
 
-#hello???
 func spawn_label(number: float, crit: bool = false) -> void:
 	var new_label: Label = Label.new()
 	new_label.text = str(number if step_decimals(number) != 0 else number as int)
