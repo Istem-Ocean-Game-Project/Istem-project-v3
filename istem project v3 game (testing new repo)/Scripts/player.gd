@@ -4,6 +4,7 @@
 #Layer 3 = HarpoonProjectile
 #Layer 4 = Enemy collision
 #Layer 5 = Weapon
+#Layer 6 = EnemyProjectile collision
 #Layer 11 = Enemies hurtbox
 
 extends CharacterBody2D
@@ -81,7 +82,7 @@ var kbvelocity = Vector2.ZERO
 #sprint
 #@onready var sprint_bar: ProgressBar = get_tree().current_scene.find_child("sprintbar", true, false) as ProgressBar
 @onready var dash_bar: ProgressBar = get_tree().current_scene.find_child("dashbar", true, false) as ProgressBar
-@onready var shield_bar = $"/root/Game/UI/CanvasLayer/ShieldBar"
+@onready var shield_bar = get_tree().current_scene.get_node("UI/CanvasLayer/ShieldBar")
 @export var sprint_multiplier: float = 1.45
 @export var sprint_max: float = 100.0
 @export var sprint_consumption_per_second: float = 25.0
@@ -434,7 +435,7 @@ func _physics_process(delta: float) -> void:
 		var normal = collision.get_normal()
 		var impactspeed = incomingvelocity.dot(-normal)
 		
-		print("impact: ", impactspeed, " can bounce: ", can_bounce)
+		#print("impact: ", impactspeed, " can bounce: ", can_bounce)
 		
 		if impactspeed > 300:
 			if can_bounce:
