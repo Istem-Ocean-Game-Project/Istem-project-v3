@@ -19,7 +19,7 @@ var pivot_hit = false
 #shield stuff below
 var shield_max_health:
 	get: 
-		return 150.0 * total_shield_increase
+		return 15.0 * total_shield_increase
 var total_shield_increase = 1.0
 var shield_health = shield_max_health
 var shield_recharge: 
@@ -417,8 +417,8 @@ func _physics_process(delta: float) -> void:
 	var crashed = false
 	
 	if Input.is_action_just_pressed("Restart"):
+		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Game.tscn")
 		get_tree().call_deferred("reload_current_scene")
-		
 	#for bounce
 	if bouncegracetimer > 0.0:
 		bouncegracetimer -= delta
@@ -581,6 +581,7 @@ var clownfish_damage = 5
 var shark_damage = 25
 var seahorse_projectile_damage = 10
 var crab_damage = 45
+var starfish_damage = 15
 
 	
 #sprint stuff below
@@ -782,7 +783,7 @@ func handleenemycontact(body: Node2D):
 	var kbstrength = 0
 
 	
-	#clownfish
+	#damage scripts
 	if body.is_in_group("clownfish"):
 		damage = clownfish_damage
 		kbstrength = 500
@@ -796,6 +797,9 @@ func handleenemycontact(body: Node2D):
 	elif body.is_in_group("crab"):
 		damage = crab_damage
 		kbstrength = 2000
+	elif body.is_in_group("starfish"):
+		damage = starfish_damage
+		kbstrength = 700
 	
 	else:
 		return
@@ -813,6 +817,7 @@ func handleenemycontact(body: Node2D):
 	kbdirection = kbdirection.normalized()
 	kbvelocity = kbdirection * kbstrength
 	kbtime = 0.12
+	$damage_number_template.spawn_label(damage, false)
 	take_player_damage(damage)
 	
 func on_spear_hit(hurtbox: TemplateHurtbox) -> void:

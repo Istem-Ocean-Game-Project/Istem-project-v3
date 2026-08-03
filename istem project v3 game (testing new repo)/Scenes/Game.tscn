@@ -17,33 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dt5cs6dqupia1" path="res://Assets/Cobblestone.png" id="14_wxwew"]
 [ext_resource type="PackedScene" uid="uid://dlfil1d4hc4ke" path="res://Scenes/Enemies/crab.tscn" id="16_alh3a"]
 [ext_resource type="Script" uid="uid://b3173ry3n47c5" path="res://Scripts/level_01.gd" id="17_4q8tf"]
-
-[sub_resource type="Gradient" id="Gradient_acvyw"]
-colors = PackedColorArray(1, 1, 0, 1, 1, 1, 0.5411765, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_x3xnh"]
-gradient = SubResource("Gradient_acvyw")
-
-[sub_resource type="Curve" id="Curve_alh3a"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_8r6kd"]
-curve = SubResource("Curve_alh3a")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_acvyw"]
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(5, 10, 1)
-spread = 40.0
-flatness = 1.0
-initial_velocity_min = 20.0
-initial_velocity_max = 20.0
-gravity = Vector3(0, 98, 0)
-scale_min = 0.099999994
-scale_max = 0.099999994
-scale_curve = SubResource("CurveTexture_8r6kd")
-color_ramp = SubResource("GradientTexture1D_x3xnh")
+[ext_resource type="PackedScene" uid="uid://dx5181rkqvp8" path="res://Scenes/Enemies/starfish.tscn" id="18_x3xnh"]
 
 [sub_resource type="Curve" id="Curve_vvhu1"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -79,6 +53,33 @@ scale_max = 0.03
 scale_curve = SubResource("CurveTexture_vvhu1")
 color_ramp = SubResource("GradientTexture1D_rajel")
 alpha_curve = SubResource("CurveTexture_tfod6")
+
+[sub_resource type="Gradient" id="Gradient_acvyw"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 1, 0.5411765, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x3xnh"]
+gradient = SubResource("Gradient_acvyw")
+
+[sub_resource type="Curve" id="Curve_alh3a"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8r6kd"]
+curve = SubResource("Curve_alh3a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_acvyw"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(5, 10, 1)
+spread = 40.0
+flatness = 1.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.099999994
+scale_max = 0.099999994
+scale_curve = SubResource("CurveTexture_8r6kd")
+color_ramp = SubResource("GradientTexture1D_x3xnh")
 
 [sub_resource type="Curve" id="Curve_3jf1l"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -503,6 +504,16 @@ autostart = true
 wait_time = 11.0
 one_shot = true
 
+[node name="ParryBubbles" type="GPUParticles2D" parent="Player" unique_id=1853327303]
+z_index = -1
+position = Vector2(-0.21829224, 0.22729492)
+emitting = false
+amount = 10
+texture = ExtResource("4_alh3a")
+lifetime = 0.25
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_356ba")
+
 [node name="ShieldRechargeTimer" type="Timer" parent="Player" unique_id=1307524377]
 wait_time = 0.2
 autostart = true
@@ -516,16 +527,6 @@ texture = ExtResource("5_3so38")
 lifetime = 0.3
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_acvyw")
-
-[node name="ParryBubbles" type="GPUParticles2D" parent="Player" unique_id=1853327303]
-z_index = -1
-position = Vector2(-0.21829224, 0.22729492)
-emitting = false
-amount = 10
-texture = ExtResource("4_alh3a")
-lifetime = 0.25
-one_shot = true
-process_material = SubResource("ParticleProcessMaterial_356ba")
 
 [node name="ParrySparks" type="GPUParticles2D" parent="Player" unique_id=1671162294]
 z_index = -1
@@ -807,6 +808,20 @@ position = Vector2(929, 867.99963)
 
 [node name="crab4" parent="Enemies/crab_folder" unique_id=1473156979 instance=ExtResource("16_alh3a")]
 position = Vector2(1274, 738.99976)
+
+[node name="starfish_folder" type="Node" parent="Enemies" unique_id=850621657]
+
+[node name="starfish" parent="Enemies/starfish_folder" unique_id=1746702460 instance=ExtResource("18_x3xnh")]
+position = Vector2(630, -1800)
+
+[node name="starfish2" parent="Enemies/starfish_folder" unique_id=2084567052 instance=ExtResource("18_x3xnh")]
+position = Vector2(991, -1669)
+
+[node name="starfish3" parent="Enemies/starfish_folder" unique_id=2140997949 instance=ExtResource("18_x3xnh")]
+position = Vector2(434.00006, -1649.0001)
+
+[node name="starfish4" parent="Enemies/starfish_folder" unique_id=853676229 instance=ExtResource("18_x3xnh")]
+position = Vector2(919, -2016)
 
 [node name="Level01" type="Area2D" parent="." unique_id=1768724796]
 position = Vector2(375, -2127)
