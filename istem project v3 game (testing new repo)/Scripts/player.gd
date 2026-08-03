@@ -19,7 +19,7 @@ var pivot_hit = false
 #shield stuff below
 var shield_max_health:
 	get: 
-		return 150.0 * total_shield_increase
+		return 15.0 * total_shield_increase
 var total_shield_increase = 1.0
 var shield_health = shield_max_health
 var shield_recharge: 
