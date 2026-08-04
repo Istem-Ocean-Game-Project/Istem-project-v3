@@ -1,18 +1,18 @@
 [gd_scene format=3 uid="uid://vpeush0nlhjd"]
 
 [ext_resource type="Script" uid="uid://b4ps3yww7sne0" path="res://Scripts/shark.gd" id="1_cb72u"]
-[ext_resource type="Texture2D" uid="uid://dknyb3s4frnyh" path="res://Assets/Shark_sprite.webp" id="2_cb72u"]
+[ext_resource type="Texture2D" uid="uid://cvge7qbswno7g" path="res://Assets/Shark_sprite.png" id="2_ygml2"]
 [ext_resource type="Script" uid="uid://dmd61flg7jy52" path="res://Scripts/Hurtbox.gd" id="3_wyy8k"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6rxyh"]
-atlas = ExtResource("2_cb72u")
-region = Rect2(0, 0, 800, 800)
+[sub_resource type="AtlasTexture" id="AtlasTexture_lx7w4"]
+atlas = ExtResource("2_ygml2")
+region = Rect2(0, 0, 72, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qi2p4"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6rxyh")
+"texture": SubResource("AtlasTexture_lx7w4")
 }],
 "loop": true,
 "name": &"default",
@@ -20,15 +20,15 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wyy8k"]
-radius = 40.384567
-height = 287.2199
+radius = 9.780821
+height = 91.2809
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8g0i4"]
 radius = 679.0319
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m247r"]
-radius = 35.57688
-height = 251.92279
+radius = 8.289692
+height = 66.63308
 
 [sub_resource type="Animation" id="Animation_wx3q7"]
 length = 0.001
@@ -99,11 +99,11 @@ script = ExtResource("1_cb72u")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=330375805]
 z_index = 3
 position = Vector2(-3.0517578e-05, 0.9615402)
-scale = Vector2(0.32799384, 0.3267673)
 sprite_frames = SubResource("SpriteFrames_qi2p4")
+frame_progress = 0.64510477
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1121136378]
-position = Vector2(10.942337, 0.5219886)
+position = Vector2(-0.057662964, 0.5219886)
 rotation = 1.5707964
 scale = Vector2(1.9914496, 0.809421)
 shape = SubResource("CapsuleShape2D_wyy8k")
@@ -120,7 +120,7 @@ script = ExtResource("3_wyy8k")
 metadata/_custom_type_script = "uid://dmd61flg7jy52"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TemplateHurtbox" unique_id=1610760545]
-position = Vector2(11.538451, 0)
+position = Vector2(-0.4615469, 5.9604645e-08)
 rotation = 1.5707964
 scale = Vector2(2.4126348, 1.0626383)
 shape = SubResource("CapsuleShape2D_m247r")
