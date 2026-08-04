@@ -118,6 +118,9 @@ size = Vector2(14.626535, 14.09145)
 
 [sub_resource type="LabelSettings" id="LabelSettings_vgqql"]
 font_size = 8
+font_color = Color(1, 1, 0, 1)
+outline_size = 1
+shadow_size = 0
 
 [node name="Player" type="CharacterBody2D" unique_id=982439447 groups=["player"]]
 scale = Vector2(4.5807157, 4.399831)
