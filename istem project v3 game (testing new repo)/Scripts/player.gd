@@ -11,8 +11,8 @@ extends CharacterBody2D
 var harpooning = false
 var currentharpoon = null
 var harpoon_point = Vector2.ZERO
-var turnaccel = 1450
-var accel = 720
+var turnaccel = 725
+var accel = 360
 var pivoting = false
 var pivot_hit = false
 
@@ -29,11 +29,11 @@ var shield_recharge_increase = 1.0
 var shield_can_recharge = false
 var maxspeed:
 	get: 
-		return 500 * total_speed_increase
+		return 250 * total_speed_increase
 var highmode = false
 var highmodeduration = 2.0
 #var highmodespeedcap = 1740
-var highmodespeedcap = 1740
+var highmodespeedcap = 900
 var highmodedrag = 150
 
 #gear variables
@@ -43,18 +43,18 @@ var total_HP_increase = 1.0
 var harpoon_target: Node2D = null
 var harpoon_local_point = Vector2.ZERO
 
-var normaldragaccel = 720
-var harpoondragaccel = 600
+var normaldragaccel = 350
+var harpoondragaccel = 300
 
 #spring tether
-var harpoonrestlength = 140
+var harpoonrestlength = 70
 var springstrength = 6
 var harpoonhit = false
-var minimumpullaccel = 1250
-var maximumpullaccel = 6500
-var normalharpoonmaxspeed: float =  1200
+var minimumpullaccel = 600
+var maximumpullaccel = 3000
+var normalharpoonmaxspeed: float =  600
 var slingshotstretchthreshold = 600
-@export var chargedharpoonspeed: float =  5000
+@export var chargedharpoonspeed: float =  2500
 @export var chargeduration: float = 2.0
 @export var chargedecay: float = 3.0
 var chargetimer: float = 0.0
@@ -72,7 +72,7 @@ var bouncegracetimer = 0.0
 var bouncegraceduration = 0.5
 var can_bounce = false
 var momentumboosttime = 0.0
-var harpooonmaxrange = 1000
+var harpooonmaxrange = 500
 var wasattachedthisshot = false
 var facinglocked = false
 var kbtime = 0.0
@@ -95,7 +95,7 @@ var kbvelocity = Vector2.ZERO
 @export var dash_cost: float = 25.0
 @export var dash_recharge_per_second: float = 12.5
 @export var dash_recharge_delay: float = 1.0
-@export var dash_speed: float = 1100
+@export var dash_speed: float = 550
 @export var dash_duration: float = 0.1
 @export var dash_bar_display_value: float = dash_max
 
@@ -320,9 +320,9 @@ func _physics_process(delta: float) -> void:
 
 	#sprite flipping stuff below
 	if direction.x > 0: 
-		faceside("right")
-	elif direction.x < 0:
 		faceside("left")
+	elif direction.x < 0:
+		faceside("right")
 	#sprite flipping ends here, please depart from the train. Functions await below
 
 	

@@ -482,6 +482,8 @@ sources/4 = SubResource("TileSetAtlasSource_pti6k")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lmarx"]
 
+[sub_resource type="TileSet" id="TileSet_rajel"]
+
 [node name="Game" type="Node2D" unique_id=1539891490]
 
 [node name="Player" parent="." unique_id=982439447 instance=ExtResource("1_gl6un")]
@@ -812,15 +814,19 @@ position = Vector2(1274, 738.99976)
 [node name="starfish_folder" type="Node" parent="Enemies" unique_id=850621657]
 
 [node name="starfish" parent="Enemies/starfish_folder" unique_id=1746702460 instance=ExtResource("18_x3xnh")]
+visible = false
 position = Vector2(630, -1800)
 
 [node name="starfish2" parent="Enemies/starfish_folder" unique_id=2084567052 instance=ExtResource("18_x3xnh")]
+visible = false
 position = Vector2(991, -1669)
 
 [node name="starfish3" parent="Enemies/starfish_folder" unique_id=2140997949 instance=ExtResource("18_x3xnh")]
+visible = false
 position = Vector2(434.00006, -1649.0001)
 
 [node name="starfish4" parent="Enemies/starfish_folder" unique_id=853676229 instance=ExtResource("18_x3xnh")]
+visible = false
 position = Vector2(919, -2016)
 
 [node name="Level01" type="Area2D" parent="." unique_id=1768724796]
@@ -837,6 +843,9 @@ offset_top = -10.0
 offset_right = 10.0
 offset_bottom = 10.0
 color = Color(0.6392157, 0, 0, 1)
+
+[node name="MapBlocks" type="TileMapLayer" parent="." unique_id=452952527]
+tile_set = SubResource("TileSet_rajel")
 
 [connection signal="timeout" from="Player/HealDelayTimer" to="Player" method="_on_heal_delay_timer_timeout"]
 [connection signal="timeout" from="Player/HealTimer" to="Player" method="_on_heal_timer_timeout"]
