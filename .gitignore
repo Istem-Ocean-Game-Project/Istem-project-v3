@@ -2,8 +2,6 @@
 .godot/
 .nomedia
 
-.DS_Store
-
 # Godot-specific ignores
 .import/
 export.cfg
