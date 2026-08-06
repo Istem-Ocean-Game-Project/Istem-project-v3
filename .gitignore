@@ -2,6 +2,8 @@
 .godot/
 .nomedia
 
+
+
 # Godot-specific ignores
 .import/
 export.cfg
@@ -16,3 +18,4 @@ export_credentials.cfg
 data_*/
 mono_crash.*.json
 .DS_Store
+istem project v3 game (testing new repo)/.DS_Store
