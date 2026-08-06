@@ -3,7 +3,7 @@
 #Layer 2 = Walls
 #Layer 3 = HarpoonProjectile
 #Layer 11 = Enemies hurtbox
-
+#test5767767575
 extends CharacterBody2D
 var speed = 185
 var damage_occuring = false
